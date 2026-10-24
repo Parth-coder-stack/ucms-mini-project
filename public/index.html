@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UCMS - University Course Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- LOGIN / REGISTER -->
+  <main id="authView" class="login-wrap">
+    <div class="card login-card">
+      <h1>UCMS</h1>
+      <p class="muted">University Course Management System</p>
+      <nav class="tabs" id="authTabs">
+        <button type="button" data-auth="login" class="active">Log in</button>
+        <button type="button" data-auth="register">Register</button>
+      </nav>
+
+      <form id="loginForm" class="stack">
+        <label>Email <input id="email" type="email" required autocomplete="username"></label>
+        <label>Password <input id="password" type="password" required autocomplete="current-password"></label>
+        <button type="submit">Log in</button>
+        <p id="loginError" class="error"></p>
+        <p class="muted small">Demo accounts:<br>student: parth.vohra@student.edu / stud123<br>faculty: rahul.mehta@university.edu / fac123<br>admin: admin@ucms.edu / admin123</p>
+      </form>
+
+      <form id="registerForm" class="stack" hidden>
+        <label>I am a
+          <select id="regRole"><option value="STUDENT">Student</option><option value="FACULTY">Faculty member</option></select>
+        </label>
+        <label>Full name <input id="regName" required maxlength="100" autocomplete="name"></label>
+        <label>Email <input id="regEmail" type="email" required maxlength="120" autocomplete="email"></label>
+        <label>Password <input id="regPassword" type="password" required minlength="8" autocomplete="new-password">
+          <small class="muted">At least 8 characters, with a letter and a digit.</small></label>
+        <label>Confirm password <input id="regPassword2" type="password" required autocomplete="new-password"></label>
+        <label>Phone <input id="regPhone" inputmode="numeric" placeholder="10-15 digits" autocomplete="tel">
+          <small class="muted">Used to verify your contact details.</small></label>
+        <label>Department <select id="regDept" required></select></label>
+
+        <div id="studentFields" class="stack">
+          <label>PRN <input id="regPrn" maxlength="20"></label>
+          <label>Year of study
+            <select id="regYear"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <label>Address (optional) <input id="regAddress" maxlength="200"></label>
+        </div>
+        <div id="facultyFields" class="stack" hidden>
+          <label>Designation (optional) <input id="regDesignation" maxlength="60" placeholder="e.g. Assistant Professor"></label>
+          <label>Staff registration code <input id="regStaffCode" autocomplete="off">
+            <small class="muted">Given to you by the administrator.</small></label>
+        </div>
+        <button type="submit">Create account</button>
+        <p id="registerError" class="error"></p>
+      </form>
+    </div>
+  </main>
+
+  <!-- APP -->
+  <div id="appView" hidden>
+    <header class="topbar">
+      <strong>UCMS</strong>
+      <span id="who"></span>
+      <button id="logoutBtn" class="ghost">Log out</button>
+    </header>
+
+    <div class="container">
+      <p id="message" class="toast" hidden></p>
+
+      <!-- student -->
+      <section id="studentView" hidden>
+        <div id="verifyBanner"></div>
+        <div id="summary" class="summary"></div>
+        <nav class="tabs" data-group="student">
+          <button data-tab="sections" class="active">Available sections</button>
+          <button data-tab="mine">My enrollments</button>
+          <button data-tab="tasks">Prerequisite tasks</button>
+          <button data-tab="attendance">Attendance</button>
+          <button data-tab="notes">Notifications</button>
+          <button data-tab="courses">Course catalog</button>
+        </nav>
+        <div id="tab-sections" class="card"></div>
+        <div id="tab-mine" class="card" hidden></div>
+        <div id="tab-tasks" hidden></div>
+        <div id="tab-attendance" class="card" hidden></div>
+        <div id="tab-notes" class="card" hidden></div>
+        <div id="tab-courses" class="card" hidden></div>
+      </section>
+
+      <!-- faculty -->
+      <section id="facultyView" hidden>
+        <nav class="tabs" data-group="faculty">
+          <button data-tab="grades" class="active">Grades</button>
+          <button data-tab="attendance">Attendance</button>
+          <button data-tab="reviews">Assignment reviews</button>
+          <button data-tab="notes">Notifications</button>
+        </nav>
+        <div id="ftab-grades"></div>
+        <div id="ftab-attendance" class="card" hidden></div>
+        <div id="ftab-reviews" hidden></div>
+        <div id="ftab-notes" class="card" hidden></div>
+      </section>
+
+      <!-- admin -->
+      <section id="adminView" hidden>
+        <nav class="tabs" data-group="admin">
+          <button data-tab="overview" class="active">Overview</button>
+          <button data-tab="courses">Courses</button>
+          <button data-tab="sections">Sections</button>
+          <button data-tab="tasks">Prerequisite tasks</button>
+        </nav>
+        <div id="atab-overview" class="card"></div>
+        <div id="atab-courses" class="card" hidden></div>
+        <div id="atab-sections" class="card" hidden></div>
+        <div id="atab-tasks" class="card" hidden></div>
+      </section>
+    </div>
+
+    <dialog id="dlg"><form id="dlgForm" class="stack"></form></dialog>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="faculty.js"></script>
+  <script src="admin.js"></script>
+  <script src="boot.js"></script>
+</body>
+</html>
